@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Precios Profesional</title>
+    <!-- Google Fonts: Lato y Montserrat para tipografía moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =================== RESET Y FONDO =================== */
+        /*
+          Reset de márgenes, paddings y box-sizing para consistencia visual.
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /*
+          Fondo oscuro y centrado del contenido principal.
+        */
+        body {
+            font-family: 'Lato', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0c0f1f; /* Fondo oscuro */
+            color: #e0e0ff;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        /* =================== ANIMACIÓN DE FONDO =================== */
+        /*
+          Círculos animados de fondo para dar profundidad visual.
+        */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .animated-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #2a2d7c, #2e5bff);
+            opacity: 0.08;
+            filter: blur(60px);
+            animation: float 25s infinite linear;
+        }
+        
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 600px;
+            height: 600px;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+        
+        .circle-3 {
+            width: 300px;
+            height: 300px;
+            top: 60%;
+            left: 25%;
+            animation-delay: -10s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(-40px, 30px) rotate(10deg);
+            }
+            50% {
+                transform: translate(20px, -40px) rotate(20deg);
+            }
+            75% {
+                transform: translate(30px, 40px) rotate(30deg);
+            }
+        }
+        
+        /* =================== CONTENEDOR PRINCIPAL =================== */
+        /*
+          Contenedor principal con ancho máximo y centrado.
+        */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .header {
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #6a7bff, #42d7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(106, 123, 255, 0.2);
+        }
+        .header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #a0a0d0;
+            line-height: 1.6;
+        }
+        /* =================== TABLAS DE PRECIOS =================== */
+        /*
+          Tarjetas de precios con fondo semitransparente, sombra y animaciones.
+        */
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px;
+        }
+        .pricing-card {
+            background: rgba(20, 22, 40, 0.7);
+            border-radius: 16px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 0 16px rgba(106, 123, 255, 0.15);
+            border: 1px solid rgba(106, 123, 255, 0.1);
+            width: 300px;
+            padding: 30px 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 12px 40px rgba(106, 123, 255, 0.25),
+                inset 0 0 20px rgba(106, 123, 255, 0.2);
+        }
+        .pricing-card.enterprise {
+            background: rgba(25, 28, 50, 0.8);
+            border: 1px solid rgba(106, 123, 255, 0.3);
+        }
+        .pricing-card.enterprise::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa36b);
+            color: #fff;
+            padding: 5px 40px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+        }
+        .card-header {
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(106, 123, 255, 0.2);
+        }
+        .card-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .enterprise .card-header h2 {
+            color: #6a7bff;
+        }
+        .price {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6a7bff, #42d7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 15px 0;
+            text-shadow: 0 2px 8px rgba(106, 123, 255, 0.3);
+        }
+        .enterprise .price {
+            font-size: 3.2rem;
+        }
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(106, 123, 255, 0.1);
+            text-align: left;
+        }
+        .feature i {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 0.9rem;
+            border-radius: 50%;
+        }
+        .feature.available i {
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+        }
+        .feature.unavailable i {
+            background: rgba(244, 67, 54, 0.15);
+            color: #f44336;
+        }
+        .feature-text {
+            flex: 1;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #6a7bff, #42d7ff);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(106, 123, 255, 0.4);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(106, 123, 255, 0.6);
+        }
+        
+        .enterprise .btn {
+            background: linear-gradient(90deg, #ff6b6b, #ffa36b);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .enterprise .btn:hover {
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* =================== TABLA COMPARATIVA =================== */
+        /*
+          Tabla comparativa de planes con estilo coherente y responsivo.
+        */
+        .comparison-table {
+            margin-top: 60px;
+            background: rgba(20, 22, 40, 0.7);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(106, 123, 255, 0.1);
+            backdrop-filter: blur(8px);
+            overflow-x: auto;
+        }
+        
+        .comparison-table h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+        
+        th {
+            background: rgba(30, 33, 60, 0.7);
+            padding: 18px 15px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #6a7bff;
+            border-bottom: 2px solid rgba(106, 123, 255, 0.3);
+        }
+        
+        th:first-child {
+            text-align: left;
+            color: #a0a0d0;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(106, 123, 255, 0.1);
+        }
+        
+        td:first-child {
+            text-align: left;
+            color: #a0a0d0;
+        }
+        
+        .available {
+            color: #4caf50;
+            font-size: 1.3rem;
+        }
+        
+        .unavailable {
+            color: #f44336;
+            font-size: 1.3rem;
+        }
+        
+        /* =================== PIE DE PÁGINA =================== */
+        /*
+          Pie de página con color sutil y separación.
+        */
+        .footer {
+            margin-top: 60px;
+            color: #a0a0d0;
+            font-size: 0.9rem;
+        }
+        /* =================== RESPONSIVE =================== */
+        /*
+          Media queries para adaptar el diseño a pantallas pequeñas.
+        */
+        @media (max-width: 768px) {
+            .pricing-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .pricing-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            .header h1 {
+                font-size: 2.3rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .price {
+                font-size: 2.3rem;
+            }
+            .enterprise .price {
+                font-size: 2.6rem;
+            }
+        }
+        .empresa-animada {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(90deg, #ff6b6b, #ffa36b);
+  color: white;
+  padding: 25px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: 0.5s;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  overflow: hidden;
+  z-index: 1;
+  margin-top: 10px;
+  font-family: 'Raleway', sans-serif;
+}
+.empresa-animada:hover {
+  background: linear-gradient(90deg, #ffa36b, #ff6b6b);
+  color: #fff;
+  box-shadow: 0 0 5px #ffa36b, 0 0 25px #ff6b6b, 0 0 50px #ffa36b, 0 0 200px #ff6b6b;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+.empresa-animada span {
+  position: absolute;
+  display: block;
+}
+.empresa-animada span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffa36b);
+  animation: animate1 1s linear infinite;
+}
+@keyframes animate1 {
+  0% { left: -100%; }
+  50%,100% { left: 100%; }
+}
+.empresa-animada span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #ff6b6b);
+  animation: animate2 1s linear infinite;
+  animation-delay: 0.25s;
+}
+@keyframes animate2 {
+  0% { top: -100%; }
+  50%,100% { top: 100%; }
+}
+.empresa-animada span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #ffa36b);
+  animation: animate3 1s linear infinite;
+  animation-delay: 0.5s;
+}
+@keyframes animate3 {
+  0% { right: -100%; }
+  50%,100% { right: 100%; }
+}
+.empresa-animada span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #ff6b6b);
+  animation: animate4 1s linear infinite;
+  animation-delay: 0.75s;
+}
+@keyframes animate4 {
+  0% { bottom: -100%; }
+  50%,100% { bottom: 100%; }
+}
+        /* --- BOTONES ANIMADOS DE PLANES --- */
+        .plan-animado {
+          position: relative;
+          display: inline-block;
+          padding: 25px 30px;
+          color: #fff;
+          text-decoration: none;
+          text-transform: uppercase;
+          transition: 0.5s;
+          letter-spacing: 4px;
+          overflow: hidden;
+          font-family: 'Raleway', sans-serif;
+          font-weight: bold;
+          border: none;
+          border-radius: 50px;
+          font-size: 1.1rem;
+          width: 100%;
+          margin-top: 10px;
+          margin-bottom: 0;
+          z-index: 1;
+          background: none;
+        }
+        .plan-animado span {
+          position: absolute;
+          display: block;
+        }
+        /* Animaciones base */
+        .plan-animado span:nth-child(1) {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: var(--animado-grad1);
+          animation: animate1 1s linear infinite;
+        }
+        .plan-animado span:nth-child(2) {
+          top: -100%;
+          right: 0;
+          width: 2px;
+          height: 100%;
+          background: var(--animado-grad2);
+          animation: animate2 1s linear infinite;
+          animation-delay: 0.25s;
+        }
+        .plan-animado span:nth-child(3) {
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          height: 2px;
+          background: var(--animado-grad3);
+          animation: animate3 1s linear infinite;
+          animation-delay: 0.5s;
+        }
+        .plan-animado span:nth-child(4) {
+          bottom: -100%;
+          left: 0;
+          width: 2px;
+          height: 100%;
+          background: var(--animado-grad4);
+          animation: animate4 1s linear infinite;
+          animation-delay: 0.75s;
+        }
+        /* Colores por plan */
+        .plan-estandar {
+          --animado-grad1: linear-gradient(90deg, transparent, #42d7ff);
+          --animado-grad2: linear-gradient(180deg, transparent, #6a7bff);
+          --animado-grad3: linear-gradient(270deg, transparent, #42d7ff);
+          --animado-grad4: linear-gradient(360deg, transparent, #6a7bff);
+          background: linear-gradient(90deg, #6a7bff, #42d7ff);
+          box-shadow: 0 4px 15px rgba(66, 215, 255, 0.4);
+        }
+        .plan-estandar:hover {
+          background: #42d7ff;
+          color: #050801;
+          box-shadow: 0 0 5px #42d7ff, 0 0 25px #6a7bff, 0 0 50px #42d7ff, 0 0 200px #6a7bff;
+        }
+        .plan-profesional {
+          --animado-grad1: linear-gradient(90deg, transparent, #4caf50);
+          --animado-grad2: linear-gradient(180deg, transparent, #43e97b);
+          --animado-grad3: linear-gradient(270deg, transparent, #4caf50);
+          --animado-grad4: linear-gradient(360deg, transparent, #43e97b);
+          background: linear-gradient(90deg, #43e97b, #4caf50);
+          box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+        .plan-profesional:hover {
+          background: #43e97b;
+          color: #050801;
+          box-shadow: 0 0 5px #43e97b, 0 0 25px #4caf50, 0 0 50px #43e97b, 0 0 200px #4caf50;
+        }
+        .plan-empresa {
+          --animado-grad1: linear-gradient(90deg, transparent, #ffa36b);
+          --animado-grad2: linear-gradient(180deg, transparent, #ff6b6b);
+          --animado-grad3: linear-gradient(270deg, transparent, #ffa36b);
+          --animado-grad4: linear-gradient(360deg, transparent, #ff6b6b);
+          background: linear-gradient(90deg, #ff6b6b, #ffa36b);
+          box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        .plan-empresa:hover {
+          background: #ffa36b;
+          color: #050801;
+          box-shadow: 0 0 5px #ffa36b, 0 0 25px #ff6b6b, 0 0 50px #ffa36b, 0 0 200px #ff6b6b;
+        }
+        /* Botones animados estilo Raleway con colores personalizados */
+        .btn-animado {
+          position: relative;
+          display: inline-block;
+          padding: 25px 30px;
+          color: var(--btn-color, #03e9f4);
+          text-decoration: none;
+          text-transform: uppercase;
+          transition: 0.5s;
+          letter-spacing: 4px;
+          overflow: hidden;
+          font-family: 'Raleway', sans-serif;
+          font-weight: bold;
+          background: none;
+          border: none;
+          margin: 10px 0 0 0;
+          font-size: 1.1rem;
+          z-index: 1;
+          width: 100%;
+          text-align: center;
+          cursor: pointer;
+        }
+        .btn-animado:hover {
+          background: var(--btn-color, #03e9f4);
+          color: #050801;
+          box-shadow: 0 0 5px var(--btn-color, #03e9f4), 0 0 25px var(--btn-color, #03e9f4), 0 0 50px var(--btn-color, #03e9f4), 0 0 200px var(--btn-color, #03e9f4);
+          -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+        }
+        .btn-animado span {
+          position: absolute;
+          display: block;
+        }
+        .btn-animado span:nth-child(1) {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, var(--btn-color, #03e9f4));
+          animation: animate1 1s linear infinite;
+        }
+        .btn-animado span:nth-child(2) {
+          top: -100%;
+          right: 0;
+          width: 2px;
+          height: 100%;
+          background: linear-gradient(180deg, transparent, var(--btn-color, #03e9f4));
+          animation: animate2 1s linear infinite;
+          animation-delay: 0.25s;
+        }
+        .btn-animado span:nth-child(3) {
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(270deg, transparent, var(--btn-color, #03e9f4));
+          animation: animate3 1s linear infinite;
+          animation-delay: 0.5s;
+        }
+        .btn-animado span:nth-child(4) {
+          bottom: -100%;
+          left: 0;
+          width: 2px;
+          height: 100%;
+          background: linear-gradient(360deg, transparent, var(--btn-color, #03e9f4));
+          animation: animate4 1s linear infinite;
+          animation-delay: 0.75s;
+        }
+        /* Colores personalizados para cada plan */
+        .btn-estandar { --btn-color: #6a7bff; }
+        .btn-profesional { --btn-color: #42d7ff; }
+        .btn-empresa { --btn-color: #ff6b6b; }
+    </style>
+</head>
+<body>
+    <!--
+      Fondo animado con círculos de colores para dar profundidad visual.
+    -->
+    <div class="background-animation">
+        <div class="animated-circle circle-1"></div>
+        <div class="animated-circle circle-2"></div>
+        <div class="animated-circle circle-3"></div>
+    </div>
+    <!--
+      Contenedor principal de la tabla de precios y comparación.
+    -->
+    <div class="container">
+        <div class="header">
+            <h1>Planes de Suscripción</h1>
+            <p>Selecciona el plan que mejor se adapte a las necesidades de tu negocio. Todas las opciones incluyen soporte prioritario y actualizaciones gratuitas.</p>
+        </div>
+        <!--
+          Tarjetas de precios para cada plan, con animaciones y botones personalizados.
+        -->
+        <div class="pricing-container">
+            <!-- Plan Estándar -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Estándar</h2>
+                    <div class="price">S/99</div>
+                    <p>Ideal para emprendedores y pequeños negocios</p>
+                </div>
+                <ul class="features">
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Acceso básico a funciones</span>
+                    </li>
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Soporte por correo</span>
+                    </li>
+                    <li class="feature unavailable">
+                        <i class="fas fa-times-circle"></i>
+                        <span class="feature-text">Funciones avanzadas</span>
+                    </li>
+                    <li class="feature unavailable">
+                        <i class="fas fa-times-circle"></i>
+                        <span class="feature-text">Soporte prioritario 24/7</span>
+                    </li>
+                </ul>
+                <a href="#" class="btn-animado btn-estandar">
+                    Seleccionar Plan
+                    <span></span><span></span><span></span><span></span>
+                </a>
+            </div>
+            <!-- Plan Profesional -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Profesional</h2>
+                    <div class="price">S/199</div>
+                    <p>Perfecto para profesionales y negocios en crecimiento</p>
+                </div>
+                <ul class="features">
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Acceso completo a funciones</span>
+                    </li>
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Soporte prioritario</span>
+                    </li>
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Funciones avanzadas</span>
+                    </li>
+                    <li class="feature unavailable">
+                        <i class="fas fa-times-circle"></i>
+                        <span class="feature-text">Soporte dedicado 24/7</span>
+                    </li>
+                </ul>
+                <a href="#" class="btn-animado btn-profesional">
+                    Seleccionar Plan
+                    <span></span><span></span><span></span><span></span>
+                </a>
+            </div>
+            <!-- Plan Empresa -->
+            <div class="pricing-card enterprise">
+                <div class="card-header">
+                    <h2>Empresa</h2>
+                    <div class="price">S/399</div>
+                    <p>Solución completa para empresas y equipos grandes</p>
+                </div>
+                <ul class="features">
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Acceso completo premium</span>
+                    </li>
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Soporte dedicado 24/7</span>
+                    </li>
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Funciones empresariales</span>
+                    </li>
+                    <li class="feature available">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Personalización avanzada</span>
+                    </li>
+                </ul>
+                <a href="#" class="btn-animado btn-empresa">
+                    Seleccionar Plan
+                    <span></span><span></span><span></span><span></span>
+                </a>
+            </div>
+        </div>
+        <!--
+          Tabla comparativa de planes con características y precios.
+        -->
+        <div class="comparison-table">
+            <h2>Comparación de Planes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Características</th>
+                        <th>Estándar</th>
+                        <th>Profesional</th>
+                        <th>Empresa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Acceso básico a funciones</td>
+                        <td class="available">✓</td>
+                        <td class="available">✓</td>
+                        <td class="available">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Soporte por correo</td>
+                        <td class="available">✓</td>
+                        <td class="available">✓</td>
+                        <td class="available">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Funciones avanzadas</td>
+                        <td class="unavailable">✗</td>
+                        <td class="available">✓</td>
+                        <td class="available">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Soporte prioritario</td>
+                        <td class="unavailable">✗</td>
+                        <td class="available">✓</td>
+                        <td class="available">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Soporte dedicado 24/7</td>
+                        <td class="unavailable">✗</td>
+                        <td class="unavailable">✗</td>
+                        <td class="available">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Personalización avanzada</td>
+                        <td class="unavailable">✗</td>
+                        <td class="unavailable">✗</td>
+                        <td class="available">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Usuarios adicionales</td>
+                        <td class="unavailable">✗</td>
+                        <td class="available">Hasta 5</td>
+                        <td class="available">Ilimitados</td>
+                    </tr>
+                    <tr>
+                        <td>Precio mensual</td>
+                        <td><strong>S/99</strong></td>
+                        <td><strong>S/199</strong></td>
+                        <td><strong>S/399</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--
+          Pie de página con créditos y botón animado para regresar al inicio.
+        -->
+        <div class="footer">
+            <p>© 2025  Soluciones Empresariales. Todos los derechos reservados.</p>
+        </div>
+        <div class="regresar-container">
+            <a href="index.html" class="regresar-btn">
+                Regresar al inicio
+                <span></span><span></span><span></span><span></span>
+            </a>
+        </div>
+    </div>
+    <style>
+    @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
+    .regresar-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px 0 0 0;
+    }
+    .regresar-btn {
+      position: relative;
+      display: inline-block;
+      padding: 25px 30px;
+      color: #03e9f4;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: 0.5s;
+      letter-spacing: 4px;
+      overflow: hidden;
+      font-family: 'Raleway', sans-serif;
+      font-weight: bold;
+      background: none;
+      border: none;
+      margin: 0;
+      font-size: 1.1rem;
+      z-index: 1;
+    }
+    .regresar-btn:hover {
+      background: #03e9f4;
+      color: #050801;
+      box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 200px #03e9f4;
+      -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+    }
+    .regresar-btn span {
+      position: absolute;
+      display: block;
+    }
+    .regresar-btn span:nth-child(1) {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #03e9f4);
+      animation: animate1 1s linear infinite;
+    }
+    @keyframes animate1 {
+      0% { left: -100%; }
+      50%,100% { left: 100%; }
+    }
+    .regresar-btn span:nth-child(2) {
+      top: -100%;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, #03e9f4);
+      animation: animate2 1s linear infinite;
+      animation-delay: 0.25s;
+    }
+    @keyframes animate2 {
+      0% { top: -100%; }
+      50%,100% { top: 100%; }
+    }
+    .regresar-btn span:nth-child(3) {
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(270deg, transparent, #03e9f4);
+      animation: animate3 1s linear infinite;
+      animation-delay: 0.5s;
+    }
+    @keyframes animate3 {
+      0% { right: -100%; }
+      50%,100% { right: 100%; }
+    }
+    .regresar-btn span:nth-child(4) {
+      bottom: -100%;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(360deg, transparent, #03e9f4);
+      animation: animate4 1s linear infinite;
+      animation-delay: 0.75s;
+    }
+    @keyframes animate4 {
+      0% { bottom: -100%; }
+      50%,100% { bottom: 100%; }
+    }
+    </style>
+    <script>
+        // Efecto de aparición suave de las tarjetas de precios
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.pricing-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = `opacity 0.5s ease ${index * 0.2}s, transform 0.5s ease ${index * 0.2}s`;
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300);
+            });
+            
+            // Efecto de movimiento sutil al pasar el ratón
+            document.addEventListener('mousemove', function(e) {
+                const container = document.querySelector('.container');
+                const x = (window.innerWidth / 2 - e.clientX) / 40;
+                const y = (window.innerHeight / 2 - e.clientY) / 40;
+                container.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+/* =================== RESET Y FUENTE =================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Elimina el padding y border del cálculo del tamaño del elemento */
+}
+body {
+    font-family: 'Lato', Arial, sans-serif; /* Fuente principal para todo el documento */
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #1e293b, #0f172a); /* Fondo degradado oscuro y moderno */
+    color: #e0e0ff; /* Color de texto principal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px;
+}
+
+/* =================== FONDO DESENFOCADO Y FORMAS =================== */
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Detrás de todo el contenido */
+    overflow: hidden;
+}
+.blur-shape {
+    position: absolute;
+    border-radius: 50%; /* Formas circulares */
+    filter: blur(80px); /* Efecto de desenfoque fuerte */
+    opacity: 0.7;
+    animation: float 12s infinite ease-in-out; /* Movimiento flotante animado */
+}
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(45deg, #03e9f4, #4d5bce); /* Degradado azul-celeste */
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+.shape-2 {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53); /* Degradado naranja-rosado */
+    bottom: 10%;
+    right: 10%;
+    animation-delay: -4s;
+}
+.shape-3 {
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(45deg, #43e97b, #38f9d7); /* Degradado verde-agua */
+    top: 50%;
+    left: 70%;
+    animation-delay: -8s;
+}
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(-40px, -40px); /* Movimiento hacia arriba a la izquierda */
+    }
+    50% {
+        transform: translate(0, -80px); /* Movimiento hacia arriba */
+    }
+    75% {
+        transform: translate(40px, -40px); /* Movimiento hacia arriba a la derecha */
+    }
+}
+
+/* =================== MARQUEE ANIMADO =================== */
+.marquee-container {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(23, 25, 48, 0.7); /* Fondo semitransparente para el marquee */
+    backdrop-filter: blur(10px); /* Difumina el fondo detrás del marquee */
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 12px #03e9f4; /* Sombra y resplandor azul */
+    padding: 0;
+    margin-bottom: 40px;
+    overflow: hidden;
+    border: 1px solid rgba(3, 233, 244, 0.3);
+}
+marquee {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.7rem;
+    color: #ffffff;
+    letter-spacing: 2px;
+    padding: 22px 0;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(3, 233, 244, 0.7); /* Sombra azul para resaltar el texto */
+}
+
+/* =================== CONTENEDOR FLEXIBLE DE CAJAS =================== */
+.contenedor-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px; /* Espacio entre cajas */
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.caja {
+    background: rgba(23, 25, 48, 0.7); /* Fondo semitransparente */
+    backdrop-filter: blur(12px); /* Difumina el fondo detrás de la caja */
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 2px 10px rgba(3, 233, 244, 0.4); /* Sombra y resplandor azul */
+    padding: 35px 30px;
+    font-size: 1.15rem;
+    line-height: 1.75;
+    flex: 1 1 320px; /* Crece y se adapta al espacio */
+    min-width: 300px;
+    max-width: 380px;
+    color: #e0e0ff;
+    position: relative;
+    transition: transform 0.4s, box-shadow 0.4s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    z-index: 2;
+}
+.caja::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #03e9f4, #4d5bce, #03e9f4); /* Borde animado azul */
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s;
+    border-radius: 22px;
+}
+.caja:hover {
+    transform: translateY(-12px) scale(1.02); /* Efecto de elevación al pasar el mouse */
+    box-shadow: 0 16px 50px rgba(3, 233, 244, 0.4), 0 4px 20px rgba(35, 41, 70, 0.8);
+}
+.caja:hover::before {
+    opacity: 0.15; /* Borde azul visible al hacer hover */
+}
+
+/* =================== TÍTULOS DE CAJA Y DECORACIÓN =================== */
+.titulo-caja {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+.titulo-caja::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    border-radius: 2px;
+    /* El color de la línea se define por caja */
+}
+.caja1 .titulo-caja {
+    color: #ff6b6b; /* Rojo para la primera caja */
+    text-shadow: 0 0 12px rgba(255, 107, 107, 0.4);
+}
+.caja1 .titulo-caja::after {
+    background: linear-gradient(90deg, transparent, #ff6b6b, transparent);
+}
+.caja2 .titulo-caja {
+    color: #42d7ff; /* Celeste para la segunda caja */
+    text-shadow: 0 0 12px rgba(66, 215, 255, 0.4);
+}
+.caja2 .titulo-caja::after {
+    background: linear-gradient(90deg, transparent, #42d7ff, transparent);
+}
+.caja3 .titulo-caja {
+    color: #43e97b; /* Verde para la tercera caja */
+    text-shadow: 0 0 12px rgba(67, 233, 123, 0.4);
+}
+.caja3 .titulo-caja::after {
+    background: linear-gradient(90deg, transparent, #43e97b, transparent);
+}
+.contenido {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* =================== PARTÍCULAS ANIMADAS =================== */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* No interfiere con el mouse */
+    z-index: 1;
+}
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(3, 233, 244, 0.4); /* Color azul turquesa */
+    animation: particleAnim 10s infinite linear; /* Animación de movimiento vertical */
+}
+@keyframes particleAnim {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg); /* Sube y rota */
+        opacity: 0;
+    }
+}
+
+/* =================== EFECTO GLOW CENTRAL =================== */
+.glow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at center, rgba(3, 233, 244, 0.1) 0%, transparent 70%); /* Resplandor central */
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* =================== BOTÓN REGRESAR ANIMADO =================== */
+.regresar-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0 0 0;
+    z-index: 10;
+}
+.regresar-btn {
+    position: relative;
+    display: inline-block;
+    padding: 18px 38px;
+    color: #03e9f4; /* Color azul turquesa */
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s; /* Transición suave para todos los cambios */
+    letter-spacing: 4px;
+    overflow: hidden;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    background: none;
+    border: none;
+    margin: 0;
+    font-size: 1.1rem;
+    z-index: 1;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba(3,233,244,0.08);
+}
+.regresar-btn:hover {
+    background: #03e9f4; /* Fondo azul al hacer hover */
+    color: #050801; /* Texto oscuro para contraste */
+    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 200px #03e9f4; /* Efecto glow animado */
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005); /* Reflejo inferior */
+}
+/* Líneas animadas en los bordes del botón */
+.regresar-btn span {
+    position: absolute;
+    display: block;
+}
+.regresar-btn span:nth-child(1) {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: animate1 1s linear infinite; /* Línea superior animada */
+}
+.regresar-btn span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: animate2 1s linear infinite; /* Línea derecha animada */
+    animation-delay: 0.25s;
+}
+.regresar-btn span:nth-child(3) {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: animate3 1s linear infinite; /* Línea inferior animada */
+    animation-delay: 0.5s;
+}
+.regresar-btn span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #03e9f4);
+    animation: animate4 1s linear infinite; /* Línea izquierda animada */
+    animation-delay: 0.75s;
+}
+@keyframes animate1 {
+    0% { left: -100%; }
+    50%,100% { left: 100%; }
+}
+@keyframes animate2 {
+    0% { top: -100%; }
+    50%,100% { top: 100%; }
+}
+@keyframes animate3 {
+    0% { right: -100%; }
+    50%,100% { right: 100%; }
+}
+@keyframes animate4 {
+    0% { bottom: -100%; }
+    50%,100% { bottom: 100%; }
+}
+
+/* =================== RESPONSIVE =================== */
+@media (max-width: 900px) {
+    .contenedor-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+    .caja {
+        max-width: 95vw;
+    }
+    marquee {
+        font-size: 1.4rem;
+        padding: 18px 0;
+    }
+}
+@media (max-width: 480px) {
+    marquee {
+        font-size: 1.2rem;
+    }
+    .titulo-caja {
+        font-size: 1.6rem;
+    }
+    .contenido {
+        font-size: 1rem;
+    }
+}

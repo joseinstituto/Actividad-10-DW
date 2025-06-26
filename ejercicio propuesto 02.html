@@ -1,0 +1,166 @@
+<!--
+  Ejercicio propuesto 02: Tarjeta de perfil centrada con estilos personalizados.
+  Comentarios detallados en cada bloque y propiedad para facilitar la comprensión.
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejercicio 02</title>
+    <!--
+      Bloque de estilos internos para la tarjeta de perfil y el botón animado.
+      Incluye importación de fuentes, estilos para la tarjeta y el botón "Regresar al inicio".
+    -->
+    <style>
+        /*
+          Estilo para la tarjeta de perfil.
+          - border: Borde doble de 3px y color #0099cc.
+          - padding: Espaciado interno amplio.
+          - margin: Margen externo para separación.
+          - background-color: Fondo celeste claro.
+          - width: Ancho fijo de 350px.
+          - text-align: Centra el texto dentro de la tarjeta.
+        */
+        .tarjeta {
+            border: 3px double #0099cc;
+            padding: 20px;
+            margin: 25px;
+            background-color: #e6f7ff;
+            width: 350px;
+            text-align: center;
+         } 
+         /*
+           Estilo para el encabezado de la tarjeta.
+           - color: Verde para destacar el nombre.
+         */
+         h3 {
+            color : green;
+         }
+         /*
+           Importación de fuentes desde Google Fonts para mejorar la tipografía.
+         */
+         @import url('https://fonts.googleapis.com/css?family=Lato:100,300,400');
+         @import url('https://fonts.googleapis.com/css?family=Roboto:100');
+         /*
+           Contenedor del botón animado.
+           - Centra el botón y le da un aspecto moderno con bordes redondeados y sombra.
+         */
+         .button-container-1 {
+           position: relative;
+           width: 180px;
+           height: 50px;
+           margin: 40px auto 0 auto;
+           overflow: hidden;
+           border: 1px solid #000;
+           font-family: 'Lato', sans-serif;
+           font-weight: 300;
+           font-size: 20px;
+           transition: 0.5s;
+           letter-spacing: 1px;
+           border-radius: 8px;
+           background: #fff;
+           box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+           text-align: center;
+         }
+         /*
+           Texto "Regresar al inicio" que aparece sobre el botón al hacer hover.
+           - Se posiciona absolutamente y se muestra con opacidad al pasar el mouse.
+         */
+         .button-container-1 .mas {
+           position: absolute;
+           left: 0; right: 0; top: 0; bottom: 0;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           color: #fff;
+           font-weight: bold;
+           font-size: 18px;
+           pointer-events: none;
+           z-index: 2;
+           opacity: 0;
+           transition: opacity 0.3s;
+         }
+         /*
+           Estilo del botón principal.
+           - Usa una máscara animada para el efecto hover.
+           - Se adapta a todo el contenedor y tiene transición de color.
+         */
+         .button-container-1 button {
+           width: 100%;
+           height: 100%;
+           font-family: 'Lato', sans-serif;
+           font-weight: 700;
+           font-size: 16px;
+           letter-spacing: 1px;
+           background: #000;
+           color: #fff;
+           border: none;
+           border-radius: 8px;
+           cursor: pointer;
+           position: relative;
+           z-index: 1;
+           /* Máscara animada para el efecto de transición */
+           -webkit-mask-image: url('https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png');
+           mask-image: url('https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png');
+           -webkit-mask-size: 2300% 100%;
+           mask-size: 2300% 100%;
+           transition: background 0.3s;
+           animation: ani2 0.7s steps(22) forwards;
+         }
+         /*
+           Efecto hover del botón: activa la animación de la máscara y oscurece el fondo.
+         */
+         .button-container-1 button:hover {
+           animation: ani 0.7s steps(22) forwards;
+           background: #222;
+         }
+         /*
+           Al hacer hover sobre el contenedor, muestra el texto animado.
+         */
+         .button-container-1:hover .mas {
+           opacity: 1;
+         }
+         /*
+           Animaciones keyframes para la máscara del botón.
+           ani: de izquierda a derecha.
+           ani2: de derecha a izquierda (estado inicial).
+         */
+         @keyframes ani {
+           from { -webkit-mask-position: 0 0; mask-position: 0 0; }
+           to { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+         }
+         @keyframes ani2 {
+           from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+           to { -webkit-mask-position: 0 0; mask-position: 0 0; }
+         }
+    </style>
+</head>
+<body>
+    <!--
+      Tarjeta de perfil centrada con nombre y descripción.
+      Explica el uso de propiedades de borde, relleno, margen y centrado.
+    -->
+    <div class="tarjeta">
+        <h3>Jose Javier Jaramilo Bravo es un Desarrollo Web</h3>
+        <p>El desarrollo web es el proceso de crear y mantener sitios y 
+            aplicaciones en internet. Es un campo muy amplio que abarca 
+            desde la construcción de una página sencilla con texto e imágenes 
+            hasta complejas plataformas online como redes sociales, tiendas virtuales 
+            o sistemas de gestión.
+            En esencia, el desarrollo web se encarga de que todo lo que ves y con lo que 
+            interactúas en una página funcione correctamente. Imagina que una página web 
+            es como una casa: el desarrollo web se ocupa de la estructura (los cimientos, 
+            las paredes, el techo), la plomería, la electricidad y, en general, de que todo 
+            esté en su lugar y sea funcional.</p>
+    </div>
+    <!--
+      Botón animado "Regresar al inicio" con efecto CSS-MASK BUTTON HOVER ANIMATION.
+      Al hacer clic, redirige a index.html.
+    -->
+    <div class="button-container-1">
+      <span class="mas">Regresar al inicio</span>
+      <button type="button" onclick="location.href='index.html'">Regresar al inicio</button>
+    </div>
+</body>
+</html>

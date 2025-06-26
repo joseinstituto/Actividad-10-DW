@@ -1,0 +1,74 @@
+/* =================== RESET Y FUENTES =================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Elimina el padding y border del cálculo del tamaño */
+}
+body {
+    font-family: 'Roboto', sans-serif; /* Fuente principal */
+    background: linear-gradient(120deg, #f0f0f0 60%, #e6f7ff 100%); /* Fondo degradado claro */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* =================== CONTENEDOR PRINCIPAL =================== */
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10); /* Sombra suave */
+    padding: 40px 32px 32px 32px;
+}
+
+/* =================== TIPOGRAFÍAS Y TEXTOS =================== */
+h1 {
+    font-family: 'Merriweather', serif; /* Título elegante */
+    font-size: 2.2em;
+    color: #00334d;
+    margin-bottom: 10px;
+}
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 18px;
+}
+
+/* =================== TARJETAS Y CLASES ESPECIALES =================== */
+.tarjeta {
+    border: 2px solid #0099cc;
+    border-radius: 15px;
+    background: linear-gradient(120deg, #e6f7ff 80%, #fff 100%); /* Fondo con degradado azul claro */
+    padding: 28px 18px 22px 18px;
+    margin: 32px 0 0 0;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(0,153,204,0.10); /* Sombra azul suave */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sevillana {
+    font-family: 'Sevillana', cursive; /* Fuente decorativa */
+    font-size: 2.3em;
+    color: #b85c00;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-shadow: 1px 2px 8px #fff2e0; /* Sombra clara */
+}
+.sevillana-regular {
+    font-family: "Sevillana", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+.roboto-100 {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+}

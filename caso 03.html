@@ -1,0 +1,518 @@
+<!--
+  CASO 03: Menú horizontal usando la etiqueta <nav> con animaciones y diseño responsivo.
+  Documentación detallada en cada bloque y propiedad para facilitar la comprensión.
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Profesional</title>
+    <!-- Google Fonts: Lato para tipografía moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =================== RESET Y FONDO =================== */
+        /*
+          Reset de márgenes, paddings y box-sizing para consistencia visual.
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /*
+          Fondo degradado oscuro y centrado del contenido principal.
+        */
+        body {
+            font-family: 'Lato', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f172a, #1e293b); /* Fondo degradado oscuro */
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+        }
+        /* =================== ANIMACIONES DE FONDO =================== */
+        /*
+          Círculos animados de fondo para efecto visual moderno.
+        */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -3;
+            overflow: hidden;
+        }
+        .animated-bg {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.28;
+            filter: blur(45px);
+            animation: float 22s infinite linear;
+        }
+        /*
+          Varias clases para círculos de diferentes tamaños, posiciones y colores.
+        */
+        .bg-1 {
+            width: 350px;
+            height: 350px;
+            top: 10%;
+            left: 5%;
+            background: linear-gradient(45deg, #00bcd4, #0097a7);
+            animation-delay: 0s;
+        }
+        
+        .bg-2 {
+            width: 500px;
+            height: 500px;
+            bottom: 8%;
+            right: 8%;
+            background: linear-gradient(120deg, #5eead4, #38bdf8);
+            animation-delay: -6s;
+            animation-direction: reverse;
+        }
+        
+        .bg-3 {
+            width: 220px;
+            height: 220px;
+            top: 65%;
+            left: 20%;
+            background: linear-gradient(60deg, #f472b6, #38bdf8);
+            animation-delay: -10s;
+        }
+        
+        .bg-4 {
+            width: 180px;
+            height: 180px;
+            bottom: 18%;
+            left: 65%;
+            background: linear-gradient(120deg, #fbbf24, #f472b6);
+            animation-delay: -14s;
+            opacity: 0.22;
+        }
+        
+        .bg-5 {
+            width: 260px;
+            height: 260px;
+            top: 8%;
+            right: 20%;
+            background: linear-gradient(90deg, #818cf8, #38bdf8);
+            animation-delay: -18s;
+            opacity: 0.19;
+        }
+        
+        .bg-6 {
+            width: 180px;
+            height: 180px;
+            bottom: 30%;
+            right: 30%;
+            background: linear-gradient(120deg, #f472b6, #818cf8);
+            animation-delay: -12s;
+            opacity: 0.25;
+        }
+        
+        .bg-7 {
+            width: 120px;
+            height: 120px;
+            top: 30%;
+            left: 60%;
+            background: linear-gradient(120deg, #38bdf8, #fbbf24);
+            animation-delay: -8s;
+            opacity: 0.32;
+        }
+        
+        .bg-8 {
+            width: 200px;
+            height: 200px;
+            bottom: 5%;
+            left: 10%;
+            background: linear-gradient(120deg, #00bcd4, #fbbf24);
+            animation-delay: -16s;
+            opacity: 0.23;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            20% {
+                transform: translate(-40px, 30px) rotate(10deg);
+            }
+            40% {
+                transform: translate(20px, -40px) rotate(20deg);
+            }
+            60% {
+                transform: translate(30px, 40px) rotate(30deg);
+            }
+            80% {
+                transform: translate(-20px, 20px) rotate(15deg);
+            }
+        }
+        
+        /* =================== CONTENEDOR PRINCIPAL =================== */
+        /*
+          Contenedor principal con fondo semitransparente, desenfoque y sombra.
+        */
+        .menu-container {
+            background: rgba(15, 23, 42, 0.65);
+            border-radius: 18px;
+            box-shadow: 
+                0 8px 32px rgba(2, 6, 23, 0.5),
+                inset 0 0 12px rgba(94, 234, 212, 0.15);
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            padding: 40px 32px;
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            z-index: 10;
+        }
+        .menu-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(94, 234, 212, 0.1), transparent 40%);
+            z-index: -1;
+            animation: pulse 8s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 0.8; }
+        }
+        
+        /* =================== TÍTULO =================== */
+        /*
+          Título principal con gradiente y animación de línea inferior.
+        */
+        .title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .title h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            display: inline-block;
+            background: linear-gradient(90deg, #5eead4, #38bdf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            letter-spacing: 1px;
+        }
+        
+        .title h1::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #5eead4, #38bdf8);
+            border-radius: 2px;
+            animation: line-pulse 3s infinite;
+        }
+        
+        @keyframes line-pulse {
+            0%, 100% { width: 120px; opacity: 1; }
+            50% { width: 160px; opacity: 0.8; }
+        }
+        
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-top: 25px;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        /* =================== MARQUEE =================== */
+        /*
+          Marquee animado con fondo degradado y resplandor.
+        */
+        .marquee-box {
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgba(14, 165, 233, 0.15), rgba(56, 189, 248, 0.15));
+            box-shadow: inset 0 0 15px rgba(94, 234, 212, 0.2);
+            border: 1px solid rgba(94, 234, 212, 0.1);
+        }
+        
+        .marquee-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(94, 234, 212, 0.2), 
+                transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .marquee-box marquee {
+            color: #e0f2fe;
+            font-family: 'Lato', Arial, sans-serif;
+            font-size: 1.25em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(2, 6, 23, 0.5);
+            padding: 15px 0;
+            max-width: 100%;
+        }
+        
+        /* =================== MENÚ DE NAVEGACIÓN =================== */
+        /*
+          Menú horizontal con enlaces animados y gradientes.
+        */
+        nav {
+            margin: 50px auto 30px;
+            width: max-content;
+            max-width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 12px;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            position: relative;
+        }
+        
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        nav ul li {
+            margin: 0;
+        }
+        
+        nav ul li a {
+            display: flex;
+            align-items: center;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #00bcd4, #008c9e);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            box-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-width: 150px;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        nav ul li a i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            transform: translateX(-100%);
+        }
+        
+        nav ul li a:hover::before {
+            animation: shine 1.5s;
+        }
+        
+        nav ul li a:hover {
+            background: linear-gradient(135deg, #0097a7, #007a8a);
+            box-shadow: 
+                0 6px 15px rgba(0, 0, 0, 0.25),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        /* =================== PIE DE PÁGINA =================== */
+        /*
+          Pie de página con color sutil y separación.
+        */
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(94, 234, 212, 0.1);
+        }
+        
+        .footer strong {
+            color: #5eead4;
+            font-weight: bold;
+        }
+        
+        /* =================== RESPONSIVE =================== */
+        /*
+          Media queries para adaptar el diseño a pantallas pequeñas.
+        */
+        @media (max-width: 900px) {
+            .menu-container {
+                padding: 30px 20px;
+            }
+            
+            .title h1 {
+                font-size: 2.3rem;
+            }
+            
+            nav ul li a {
+                padding: 14px 25px;
+                min-width: 130px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            nav ul li a {
+                width: 100%;
+                padding: 16px;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .menu-container {
+                padding: 25px 15px;
+            }
+            
+            .title h1 {
+                font-size: 1.8rem;
+            }
+            
+            .marquee-box marquee {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--
+      Animaciones de fondo con círculos de colores para dar profundidad y dinamismo.
+    -->
+    <div class="background-animation">
+        <div class="animated-bg bg-1"></div>
+        <div class="animated-bg bg-2"></div>
+        <div class="animated-bg bg-3"></div>
+        <div class="animated-bg bg-4"></div>
+        <div class="animated-bg bg-5"></div>
+        <div class="animated-bg bg-6"></div>
+        <div class="animated-bg bg-7"></div>
+        <div class="animated-bg bg-8"></div>
+    </div>
+    <!--
+      Contenedor principal del menú horizontal profesional.
+    -->
+    <div class="menu-container">
+        <div class="title">
+            <h1>Menú Profesional</h1>
+            <div class="subtitle">Menú horizontal profesional con animaciones modernas y diseño responsivo</div>
+        </div>
+        <!--
+          Marquee animado con mensaje destacado.
+        -->
+        <div class="marquee-box">
+            <marquee behavior="scroll" direction="left" scrollamount="7">
+                <i class="fas fa-star"></i> Menú horizontal profesional con HTML y CSS <i class="fas fa-star"></i>
+            </marquee>
+        </div>
+        <!--
+          Menú de navegación principal con iconos y animaciones.
+          usando la etiqueta <nav> para semántica y accesibilidad.
+        -->
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> INICIO</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> NOSOTROS</a></li>
+                <li><a href="#"><i class="fas fa-cogs"></i> SERVICIOS</a></li>
+                <li><a href="#"><i class="fas fa-folder-open"></i> RECURSOS</a></li>
+                <li><a href="#"><i class="fas fa-envelope"></i> CONTÁCTENOS</a></li>
+                <li><a href="index.html"><i class="fas fa-arrow-left"></i> REGRESAR</a></li>
+            </ul>
+        </nav>
+        <!--
+          Pie de página con créditos.
+        -->
+        <div class="footer">
+            Diseñado con <strong>HTML5</strong> y <strong>CSS3</strong> - Menú de navegación profesional
+        </div>
+    </div>
+    <script>
+        // Efecto de aparición suave del menú principal
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuContainer = document.querySelector('.menu-container');
+            menuContainer.style.opacity = '0';
+            menuContainer.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                menuContainer.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                menuContainer.style.opacity = '1';
+                menuContainer.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // Efecto de movimiento sutil al pasar el ratón
+            document.addEventListener('mousemove', function(e) {
+                const x = (window.innerWidth / 2 - e.clientX) / 25;
+                const y = (window.innerHeight / 2 - e.clientY) / 25;
+                menuContainer.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
